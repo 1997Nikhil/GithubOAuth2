@@ -1,0 +1,114 @@
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 45px 35px;
+  background: white;
+  border-radius: 20px;
+  text-align: center;
+
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.1);
+
+  animation: fadeIn 0.7s ease;
+}
+
+.github-icon {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #24292e;
+  color: white;
+
+  border-radius: 50%;
+}
+
+.login-card h1 {
+  font-size: 32px;
+  margin-bottom: 12px;
+  color: #24292e;
+}
+
+.login-card p {
+  color: #6b7280;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.github-button {
+  width: 100%;
+  padding: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #24292e;
+  color: white;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.github-button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 25px rgba(36, 41, 46, 0.25);
+}
+
+.github-button:active {
+  transform: translateY(0);
+}
+
+.security-text {
+  display: block;
+  margin-top: 25px;
+
+  font-size: 14px;
+  color: #6b7280;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: 35px 25px;
+  }
+
+  .login-card h1 {
+    font-size: 27px;
+  }
+}

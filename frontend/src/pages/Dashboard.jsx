@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import "./Dashboard.css";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -18,7 +19,7 @@ const Dashboard = () => {
 
       setUser(response.data.user);
     } catch (error) {
-      console.error(error);
+      console.error("Authentication error:", error);
     } finally {
       setLoading(false);
     }
@@ -36,7 +37,7 @@ const Dashboard = () => {
 
       window.location.href = "/";
     } catch (error) {
-      console.error(error);
+      console.error("Logout error:", error);
     }
   };
 
@@ -45,46 +46,110 @@ const Dashboard = () => {
   }, []);
 
   if (loading) {
-    return <h2>Loading...</h2>;
+    return (
+      <div className="loading-container">
+        <div className="loader"></div>
+        <p>Loading your profile...</p>
+      </div>
+    );
   }
 
   if (!user) {
     return (
-      <div>
-        <h2>Not authenticated</h2>
+      <div className="not-authenticated">
+        <h2>You're not authenticated</h2>
 
-        <a href="/">
-          Go to login
-        </a>
+        <p>
+          Please login with your GitHub account to continue.
+        </p>
+
+        <button
+          onClick={() => (window.location.href = "/")}
+        >
+          Go to Login
+        </button>
       </div>
     );
   }
 
   return (
-    <div>
-      <h1>Welcome {user.displayName || user.username}</h1>
+    <div className="dashboard-page">
+      <nav className="navbar">
+        <div className="logo">
+          GitHub OAuth
+        </div>
 
-      <img
-        src={user.avatar}
-        alt={user.username}
-        width="100"
-      />
+        <button
+          className="logout-button"
+          onClick={handleLogout}
+        >
+          Logout
+        </button>
+      </nav>
 
-      <p>Username: {user.username}</p>
+      <main className="dashboard-container">
+        <div className="welcome-section">
+          <h1>
+            Welcome back,{" "}
+            {user.displayName || user.username}! 👋
+          </h1>
 
-      <p>Email: {user.email}</p>
+          <p>
+            Your GitHub account has been successfully authenticated.
+          </p>
+        </div>
 
-      <a
-        href={user.githubProfileUrl}
-        target="_blank"
-        rel="noreferrer"
-      >
-        GitHub Profile
-      </a>
+        <div className="profile-card">
+          <div className="profile-header">
+            <img
+              src={user.avatar}
+              alt={user.username}
+              className="profile-image"
+            />
 
-      <button onClick={handleLogout}>
-        Logout
-      </button>
+            <div>
+              <h2>
+                {user.displayName || user.username}
+              </h2>
+
+              <span>
+                @{user.username}
+              </span>
+            </div>
+          </div>
+
+          <div className="profile-details">
+            <div className="detail">
+              <span className="detail-label">
+                Username
+              </span>
+
+              <span className="detail-value">
+                {user.username}
+              </span>
+            </div>
+
+            <div className="detail">
+              <span className="detail-label">
+                Email
+              </span>
+
+              <span className="detail-value">
+                {user.email || "Not publicly available"}
+              </span>
+            </div>
+          </div>
+
+          <a
+            href={user.githubProfileUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="github-profile-button"
+          >
+            View GitHub Profile →
+          </a>
+        </div>
+      </main>
     </div>
   );
 };
