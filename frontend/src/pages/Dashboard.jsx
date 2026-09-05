@@ -24,6 +24,22 @@ const Dashboard = () => {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      await axios.post(
+        `${API_URL}/api/auth/logout`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+
+      window.location.href = "/";
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     getUser();
   }, []);
@@ -65,6 +81,10 @@ const Dashboard = () => {
       >
         GitHub Profile
       </a>
+
+      <button onClick={handleLogout}>
+        Logout
+      </button>
     </div>
   );
 };
